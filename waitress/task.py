@@ -230,7 +230,7 @@ class Task(object):
             if connection == 'close':
                 close_on_finish()
 
-            if not content_length_header:
+            if not content_length_header and not (('Content-Type', 'text/event-stream') in response_headers):
                 response_headers.append(('Transfer-Encoding', 'chunked'))
                 self.chunked_response = True
                 if not self.close_on_finish:

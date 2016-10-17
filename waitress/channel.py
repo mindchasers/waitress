@@ -123,7 +123,8 @@ class HTTPChannel(logging_dispatcher, object):
             #    won't get done.
             flush = self._flush_some_if_lockable
             self.force_flush = False
-        elif (self.total_outbufs_len() >= self.adj.send_bytes):
+        #elif (self.total_outbufs_len() >= self.adj.send_bytes):
+        elif (self.total_outbufs_len() > 0):
             # 1. There's a running task, so we need to try to lock
             #    the outbuf before sending
             # 2. Only try to send if the data in the out buffer is larger
@@ -184,6 +185,8 @@ class HTTPChannel(logging_dispatcher, object):
 
         if not data:
             return False
+        else:
+            print(data)
 
         while data:
             if request is None:
